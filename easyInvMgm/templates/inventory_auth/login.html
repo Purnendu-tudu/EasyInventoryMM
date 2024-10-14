@@ -1,0 +1,54 @@
+{% extends "../layout.html" %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row w-100">
+      <div class="col-md-4 mx-auto">
+        <div class="card p-4">
+          <h3 class="text-center mb-4">Inv Login</h3>
+
+          <!-- Check if there are any non-field errors (general form errors) -->
+          {% if form.non_field_errors %}
+          <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <form method="POST">
+            {% csrf_token %}
+
+            <!-- Username Field with Error Handling -->
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control {% if form.username.errors %}is-invalid{% endif %}" id="username" name="username" placeholder="Enter your username">
+              {% if form.username.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.username.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+
+            <!-- Password Field with Error Handling -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}" id="password" name="password" placeholder="Enter your password">
+              {% if form.password.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
