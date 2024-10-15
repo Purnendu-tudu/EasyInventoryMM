@@ -1,0 +1,25 @@
+{% extends "../layout.html" %} {% block content %}
+
+<div class="container">
+    <div class="row mx-auto justify-content-center">
+        <div class="card m-4" style="width: 90%">
+            <div class="card-body">
+                <div id="chart1"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var graph = {{ sales_graph | safe }}
+    Plotly.newPlot("chart1", graph, {})
+
+</script>
+
+{% endblock%}

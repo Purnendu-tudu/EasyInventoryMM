@@ -67,6 +67,17 @@
               {% endif %}
             </li>
 
+            <li class="nav-item">
+              {% if request.user.is_authenticated %}
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'dashboard' %}"
+                >DashBoard</a
+              >
+              {% endif %}
+            </li>
+
             <li class="nav-item d-flex align-items-center">
               {% if request.user.is_authenticated %}
               <form method="POST" action="{% url 'logout' %}">

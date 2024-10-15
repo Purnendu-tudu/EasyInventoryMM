@@ -8,6 +8,12 @@ from .models import Inventory
 # here we are importing our forms
 from .forms import AddInventoryForm, UpdateInventoryFrom
 
+#import for the dasboard
+from django_pandas.io import read_frame
+import plotly
+import plotly.express as px
+import json
+
 
 
 
@@ -89,6 +95,20 @@ def update_product(request, pk):
     
     return render(request, "inventory/inventory_update.html", context=context)
 
+@login_required
+def dashboard(request):
+    inventories = Inventory.objects.all()
+    df = read_frame(inventories)
+
+    sales_graph = df.groupby(by="last_sale_date", as_index=False, sort=False)['sales'].sum()
+    sales_graph = px.line(sales_graph, x = sales_graph.last_sale_date, y = sales_graph.sales, title="Sales Trend")
+    sales_graph = json.dumps(sales_graph, cls=plotly.utils.PlotlyJSONEncoder)
+
+    context = {
+        "sales_graph" : sales_graph
+    }
+
+    return render(request, "inventory/dashboard.html", context=context)
 
     
 
