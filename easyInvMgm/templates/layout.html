@@ -10,6 +10,14 @@
       crossorigin="anonymous"
     />
 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     {% if title %}
     <title>IMM | {{title}}</title>
     {% else %}
@@ -39,7 +47,23 @@
             </li>
             <li class="nav-item">
               {% if request.user.is_authenticated %}
-                <a class="nav-link active" aria-current="page" href="{% url 'inventoryList' %}">Inventory</a>
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'inventoryList' %}"
+                >Inventory</a
+              >
+              {% endif %}
+            </li>
+
+            <li class="nav-item">
+              {% if request.user.is_authenticated %}
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'addProduct' %}"
+                >Add Product</a
+              >
               {% endif %}
             </li>
 

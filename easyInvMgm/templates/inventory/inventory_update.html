@@ -1,0 +1,80 @@
+{% extends "../layout.html" %} 
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row w-100">
+      <div class="col-md-4 mx-auto">
+        <div class="card p-4">
+          <h3 class="text-center mb-4">Update Product</h3>
+
+          <!-- Check if there are any non-field errors (general form errors) -->
+          {% if form.non_field_errors %}
+          <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <form method="POST">
+            {% csrf_token %}
+
+            <!-- Name Field with Error Handling -->
+            <div class="mb-3">
+              <label for="id_name" class="form-label">Name</label>
+              <input type="text" class="form-control {% if form.name.errors %}is-invalid{% endif %}" id="id_name" name="name" maxlength="100" required placeholder="Enter the item name" value="{{ form.name.value|default_if_none:'' }}">
+              {% if form.name.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.name.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+
+            <!-- Cost per Item Field with Error Handling -->
+            <div class="mb-3">
+              <label for="id_cost_per_item" class="form-label">Cost per item</label>
+              <input type="number" class="form-control {% if form.cost_per_item.errors %}is-invalid{% endif %}" id="id_cost_per_item" name="cost_per_item" step="0.01" required placeholder="Enter the cost per item" value="{{ form.cost_per_item.value|default_if_none:'' }}">
+              {% if form.cost_per_item.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.cost_per_item.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+
+            <!-- Quantity in Stock Field with Error Handling -->
+            <div class="mb-3">
+              <label for="id_quantity_in_stock" class="form-label">Quantity in stock</label>
+              <input type="number" class="form-control {% if form.quantity_in_stock.errors %}is-invalid{% endif %}" id="id_quantity_in_stock" name="quantity_in_stock" required placeholder="Enter the quantity in stock" value="{{ form.quantity_in_stock.value|default_if_none:'' }}">
+              {% if form.quantity_in_stock.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.quantity_in_stock.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+
+            <!-- Quantity Sold Field with Error Handling -->
+            <div class="mb-3">
+              <label for="id_quantity_sold" class="form-label">Quantity sold</label>
+              <input type="number" class="form-control {% if form.quantity_sold.errors %}is-invalid{% endif %}" id="id_quantity_sold" name="quantity_sold" required placeholder="Enter the quantity sold" value="{{ form.quantity_sold.value|default_if_none:'' }}">
+              {% if form.quantity_sold.errors %}
+              <div class="invalid-feedback">
+                {% for error in form.quantity_sold.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
